@@ -1,13 +1,21 @@
 package com.example.cmd.doodlz2;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,6 +55,12 @@ public class MainActivityFragment extends Fragment {
         enableAccelerometerListening();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        disableAccelerationListening();
+    }
+
     private void enableAccelerometerListening() {
         SensorManager sensorManager = (SensorManager) getActivity()
                 .getSystemService(Context.SENSOR_SERVICE);
@@ -56,11 +70,7 @@ public class MainActivityFragment extends Fragment {
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        disableAccelerationListening();
-    }
+
 
     private void disableAccelerationListening() {
         SensorManager sensorManager = (SensorManager)getActivity()
@@ -97,8 +107,86 @@ public class MainActivityFragment extends Fragment {
                 }
                     private void confirmErase() {
                         EraseImageDialogFragment fragment = new EraseImageDialogFragment();
-                        fragment.show(getFragmentManager(),TAG);
-                        //TODO: Error maybe because the fragment has only a empty constructor
+                        fragment.show(getFragmentManager(),"erase dialog");
                 }
             };
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.doodle_fragment_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.color:
+                ColorDialogFragment colorDialog = new ColorDialogFragment();
+                colorDialog.show(getFragmentManager(), "color dialog");
+                return true; // consume the menu event
+            case R.id.line_width:
+                LineWidthDialogFragment widthDialog =
+                        new LineWidthDialogFragment();
+                widthDialog.show(getFragmentManager(), "line width dialog");
+                return true; // consume the menu event
+            case R.id.delete_drawing:
+                confirmErase(); // confirm before erasing image
+                return true; // consume the menu event
+            case R.id.save:
+                saveImage(); // check permission and save current image
+                return true; // consume the menu event
+            case R.id.print:
+                doodleView.printImage(); // print the current images
+                return true; // consume the menu event
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case SAVE_IMAGE_REQUEST:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    mDoodleView.saveImage();
+                return;
+        }
+    }
+
+    private void saveImage() {
+        if(getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+
+            if(shouldShowRequestPermissionRationale(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setMessage("We need permission to save the image.");
+                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissions(new String[] {
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                                SAVE_IMAGE_REQUEST);
+                    }
+                });
+                dialog.show();
+            } else {
+                requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                        SAVE_IMAGE_REQUEST);
+            }
+        } else {
+            mDoodleView.saveImage();
+        }
+    }
+
+    private void confirmErase() {
+
+    }
+
+    public DoodleView getDoodleView() {
+        return mDoodleView;
+    }
+
+    public void setDialogOnScreen(boolean visible) {
+        dialogOnScreen = visible;
+    }
 }

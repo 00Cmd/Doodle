@@ -1,7 +1,7 @@
 package com.example.cmd.doodlz2;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
+import android.support.v4.app.DialogFragment;
 
 /**
  * Created by cmd on 5.11.17.
