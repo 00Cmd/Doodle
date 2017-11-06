@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/color"
+        android:title="@string/item_color"
+        android:icon="@mipmap/ic_palette_black_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/line_width"
+        android:title="@string/line_width"
+        android:icon="@mipmap/ic_brush_black_24dp"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item
+        android:id="@+id/delete_drawing"
+        android:title="@string/delete"
+        android:icon="@mipmap/ic_delete_black_24dp"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@mipmap/ic_save_black_24dp"
+        app:showAsAction="ifRoom">
+    </item>
+    <item
+        android:id="@+id/print"
+        android:title="@string/print"
+        android:icon="@mipmap/ic_print_black_24dp"
+        app:showAsAction="ifRoom">
+    </item>
+
+</menu>

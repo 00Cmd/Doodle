@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/colorDialogGridLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:useDefaultMargins="true"
+    android:columnCount="2">
+
+    <TextView
+        android:layout_column="0"
+        android:layout_gravity="end|center_horizontal"
+        android:layout_row="0"
+        android:id="@+id/labelAlpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelAlpha" />
+
+    <SeekBar
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        android:id="@+id/labelAlphaBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:max="255"/>
+
+    <TextView
+        android:layout_column="0"
+        android:layout_gravity="end|center_horizontal"
+        android:layout_row="1"
+        android:id="@+id/labelRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelRed" />
+
+    <SeekBar
+        android:layout_column="1"
+        android:layout_row="1"
+        android:layout_gravity="fill_horizontal"
+        android:max="255"
+        android:id="@+id/labelRedBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_column="0"
+        android:layout_row="2"
+        android:layout_gravity="end|center_horizontal"
+        android:id="@+id/labelGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelGreen" />
+
+    <SeekBar
+        android:layout_column="1"
+        android:layout_row="2"
+        android:max="255"
+        android:layout_gravity="fill_horizontal"
+        android:id="@+id/labelGreenBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_column="0"
+        android:layout_row="3"
+        android:layout_gravity="end|center_horizontal"
+        android:id="@+id/labelBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelBlue" />
+
+    <SeekBar
+        android:layout_column="1"
+        android:max="255"
+        android:layout_row="3"
+        android:id="@+id/labelBlueBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/colorView"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/color_view_height"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill_horizontal" />
+
+
+
+
+</GridLayout>
