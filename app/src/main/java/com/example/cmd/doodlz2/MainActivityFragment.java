@@ -136,7 +136,7 @@ public class MainActivityFragment extends Fragment {
                 saveImage(); // check permission and save current image
                 return true; // consume the menu event
             case R.id.print:
-                doodleView.printImage(); // print the current images
+                mDoodleView.printImage(); // print the current images
                 return true; // consume the menu event
         }
         return super.onOptionsItemSelected(item);
